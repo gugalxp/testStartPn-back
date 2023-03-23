@@ -1,4 +1,4 @@
-const Cliente = require("../models/Cliente");
+const Fornecedor = require("../models/Fornecedor");
 const uuid = require("uuid");
 
 module.exports = {
@@ -6,12 +6,12 @@ module.exports = {
     try {
       const { id } = req.body;
 
-      const cliente = await Cliente.destroy({
+      const fornecedor = await Fornecedor.destroy({
         where: {
           id: id,
         },
       });
-      return res.json(cliente);
+      return res.json(fornecedor);
     } catch (err) {
       console.log(err);
     }
@@ -20,7 +20,7 @@ module.exports = {
     try {
       const { id, name, email, telefone, endereco } = req.body;
 
-      const cliente = await Cliente.update(
+      const fornecedor = await Fornecedor.update(
         {
           name,
           email,
@@ -33,46 +33,41 @@ module.exports = {
           },
         }
       );
-      return res.json(cliente);
+      return res.json(fornecedor);
     } catch (err) {
       console.log(err);
     }
   },
   async listAll(req, res) {
-    try {
-      const clientes = await Cliente.findAll({
-        order: [["id", "ASC"]],
-      });
+    const fornecedores = await Fornecedor.findAll({
+      order: [["id", "ASC"]],
+    });
 
-      return res.json(clientes);
-    } catch (err) {
-      console.log(err);
-    }
+    return res.json(fornecedores);
   },
   async storage(req, res, next) {
     try {
       const { name, email, telefone, endereco } = req.body;
 
-      const clientExistis = await Cliente.findOne({
+      const fornecedorExistis = await Fornecedor.findOne({
         where: {
           email: email,
         },
       });
-      if (clientExistis !== null) {
+      if (fornecedorExistis !== null) {
         throw new Error("Este e-mail já existe!");
       }
 
-      const cliente = await Cliente.create({
+      const fornecedor = await Fornecedor.create({
         id: uuid.v4(),
         name,
         email,
         telefone,
         endereco,
       });
-      return res.json(cliente);
+      return res.json(fornecedor);
     } catch (err) {
       next(err);
-      console.log(err);
     }
   },
 };

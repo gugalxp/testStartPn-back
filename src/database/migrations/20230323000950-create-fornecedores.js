@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.createTable('users', {
+    return queryInterface.createTable('fornecedores', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -26,10 +26,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       urlImg: {
         type: Sequelize.BLOB,
         allowNull: true
@@ -46,6 +42,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.dropTable('users');
+    return queryInterface.dropTable('fornecedores');
   }
 };
