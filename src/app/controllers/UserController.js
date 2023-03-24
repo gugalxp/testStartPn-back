@@ -12,9 +12,19 @@ module.exports = {
       console.log(err);
     }
   },
-  async storage(req, res) {
+  async storage(req, res, next) {
     try {
-      const { name, email, telefone, endereco, password } = req.body;
+      const { name, email, password } = req.body;
+
+      const userExists = await User.findOne({
+        where: {
+          email: email,
+        },
+      });
+
+      if (userExists !== null) {
+        throw new Error("Este e-mail já existe!");
+      }
 
       const passwordHash = await hash(password, 8);
 
@@ -22,12 +32,11 @@ module.exports = {
         id: uuid.v4(),
         name,
         email,
-        telefone,
-        endereco,
         password: passwordHash,
       });
       return res.json(user);
     } catch (err) {
+      next(err);
       console.log(err);
     }
   },

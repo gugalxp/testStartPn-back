@@ -29,7 +29,7 @@ async function send(req, res, next) {
       }
     );
 
-    const link = `https://localhost:3000/redefinir-senha?token=${token}`;
+    const link = `http://localhost:3000/newPassword${token}`;
 
     const corpoEmail = `
     <p>Você solicitou uma redefinição de senha em nosso site.</p>
@@ -44,9 +44,13 @@ async function send(req, res, next) {
       to: email,
       html: corpoEmail,
     });
-    next();
-    return res.json({ message: "E-mail enviado com sucesso!" });
+    
+    return res.json({ 
+      message: "E-mail enviado com sucesso!",
+      token: token 
+    });
   } catch (error) {
+    next(error);
     return res.json({
       error: "Houve algum problema ao tentar enviar o e-mail!" + error.message,
     });

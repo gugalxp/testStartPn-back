@@ -40,6 +40,7 @@ module.exports = {
         name: user?.name,
         email: user?.email,
         endereco: user?.endereco,
+        endereco: user?.telefone,
         token: token,
       });
     } catch (err) {

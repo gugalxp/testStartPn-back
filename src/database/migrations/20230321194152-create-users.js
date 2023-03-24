@@ -18,14 +18,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      telefone: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      endereco: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       password: {
         type: Sequelize.STRING,
         allowNull: false
