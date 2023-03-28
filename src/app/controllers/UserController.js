@@ -3,6 +3,19 @@ const uuid = require("uuid");
 const { hash } = require("bcryptjs");
 
 module.exports = {
+  async detailsUser(req, res) {
+    try {
+      const userExists = await User.findOne({
+        where: {
+          id: req.id,
+        },
+      });
+
+      return res.json(userExists);
+    } catch (err) {
+      console.log(err);
+    }
+  },
   async listUsers(req, res) {
     try {
       const users = await User.findAll();

@@ -11,7 +11,7 @@ function isAuthenticated(req, res, next) {
 
   try {
     const { sub } = verify(token, "4da87c28b002243bc25fff6b2a4b7fd6");
-    req.loggedUser = sub;
+    req.id = sub;
     return next();
   } catch (err) {
     return res.status(401).end();

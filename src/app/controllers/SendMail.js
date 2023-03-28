@@ -1,6 +1,5 @@
 const nodemailer = require("nodemailer");
 const SMTP_CONFIG = require("../../config/smtp");
-const { sign } = require("jsonwebtoken");
 
 const transporter = nodemailer.createTransport({
   host: SMTP_CONFIG.host,
@@ -19,17 +18,7 @@ async function send(req, res, next) {
   try {
     const { email } = req.body;
 
-    const token = sign(
-      {
-        email,
-      },
-      "4da87c28b002243bc25fff6b2a4b7fd6",
-      {
-        expiresIn: "1h",
-      }
-    );
-
-    const link = `http://localhost:3000/newPassword${token}`;
+    const link = "http://localhost:3000/newPassword";
 
     const corpoEmail = `
     <p>Você solicitou uma redefinição de senha em nosso site.</p>
@@ -45,14 +34,13 @@ async function send(req, res, next) {
       html: corpoEmail,
     });
     
-    return res.json({ 
+    res.json({ 
       message: "E-mail enviado com sucesso!",
-      token: token 
     });
   } catch (error) {
     next(error);
-    return res.json({
-      error: "Houve algum problema ao tentar enviar o e-mail!" + error.message,
+    res.json({
+      error: "Houve algum problema ao tentar enviar o e-mail! " + error.message,
     });
   }
 }

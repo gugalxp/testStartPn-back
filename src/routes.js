@@ -8,6 +8,7 @@ const sendMail = require('./app/controllers/SendMail')
 
 const router = express.Router();
 
+/*Enviar Email*/
 
 router.post('/sendMail', sendMail)
 
@@ -16,18 +17,19 @@ router.post('/sendMail', sendMail)
 router.post('/users/login', AuthUserController.authUserService)
 router.post('/users', UserController.storage)
 router.get('/users', UserController.listUsers)
+router.get('/users/details', isAuthenticated, UserController.detailsUser)
 
 /*CLIENTES*/
 
-router.post('/clientes', isAuthenticated , ClienteController.storage)
-router.get('/clientes', isAuthenticated, isAuthenticated, ClienteController.listAll)
-router.put('/clientes', isAuthenticated, ClienteController.update)
-router.delete('/clientes', isAuthenticated, ClienteController.delete)
+router.post('/client', isAuthenticated , ClienteController.storage)
+router.get('/client', ClienteController.listAll)
+router.put('/client', isAuthenticated, ClienteController.update)
+router.delete('/client', isAuthenticated, ClienteController.delete)
 
 /*FORNECEDORES*/
 
 router.post('/fornecedor', isAuthenticated, FornecedorController.storage)
-router.get('/fornecedor', isAuthenticated, FornecedorController.listAll)
+router.get('/fornecedor', FornecedorController.listAll)
 router.put('/fornecedor', isAuthenticated, FornecedorController.update)
 router.delete('/fornecedor', isAuthenticated, FornecedorController.delete)
 
