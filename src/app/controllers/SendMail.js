@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const SMTP_CONFIG = require("../../config/smtp");
+const User = require("../models/User");
 
 const transporter = nodemailer.createTransport({
   host: SMTP_CONFIG.host,
@@ -18,6 +19,18 @@ async function send(req, res, next) {
   try {
     const { email } = req.body;
 
+    const userExists = await User.findOne({
+      where: {
+        email: email,
+      },
+    });
+
+    if (userExists === null) {
+      throw new Error("E-mail não encontrado!");
+    }
+
+    let resonseEmailSent = userExists;
+
     const link = "http://localhost:3000/newPassword";
 
     const corpoEmail = `
@@ -29,12 +42,13 @@ async function send(req, res, next) {
 
     await transporter.sendMail({
       subject: "Vaga JR StartPn",
-      from: `Gustavo Arruda <${SMTP_CONFIG.user}>`,
+      from: `StartPn <${SMTP_CONFIG.user}>`,
       to: email,
       html: corpoEmail,
     });
-    
-    res.json({ 
+
+    res.json({
+      resonseEmailSent,
       message: "E-mail enviado com sucesso!",
     });
   } catch (error) {

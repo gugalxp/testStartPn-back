@@ -18,6 +18,9 @@ router.post('/users/login', AuthUserController.authUserService)
 router.post('/users', UserController.storage)
 router.get('/users', UserController.listUsers)
 router.get('/users/details', isAuthenticated, UserController.detailsUser)
+router.put('/users/update', UserController.updatePassword)
+
+
 
 /*CLIENTES*/
 

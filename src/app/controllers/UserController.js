@@ -3,7 +3,31 @@ const uuid = require("uuid");
 const { hash } = require("bcryptjs");
 
 module.exports = {
-  async detailsUser(req, res) {
+  async updatePassword(req, res, next) {
+    try {
+      const { id, newPassword } = req.body;
+
+      const passwordHash = await hash(newPassword, 8);
+
+      const user = await User.update(
+        {
+          password: passwordHash,
+        },
+        {
+          where: {
+            id: id,
+          },
+        }
+      );
+      next();
+
+      return res.json({ message: "Senha atualizada com sucesso!"});
+    } catch (err) {
+      next(err)
+      console.log(err);
+    }
+  },
+  async detailsUser(req, res, next) {
     try {
       const userExists = await User.findOne({
         where: {
@@ -11,8 +35,13 @@ module.exports = {
         },
       });
 
+      if (userExists !== null) {
+        throw new Error("Usuario não encontrado!");
+      }
+      next()
       return res.json(userExists);
     } catch (err) {
+      next(err)
       console.log(err);
     }
   },
