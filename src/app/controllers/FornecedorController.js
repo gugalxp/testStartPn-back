@@ -1,7 +1,30 @@
 const Fornecedor = require("../models/Fornecedor");
 const uuid = require("uuid");
+const { Op } = require("sequelize");
 
 module.exports = {
+  async searchSupplier(req, res, next) {
+    try {
+      const { search } = req.body;
+
+      const supplier = await Fornecedor.findAll({
+        where: {
+          [Op.or]: [
+            { name: { [Op.like]: `%${search}%` } },
+            { email: { [Op.like]: `%${search}%` } },
+          ],
+        },
+      });
+
+      if (supplier.length === 0) {
+        throw new Error("Nenhum Fornecedor encontrado com o nome ou e-mail informado");
+      }
+
+      return res.json(supplier);
+    } catch (error) {
+      return res.json({error: error.message});
+    }
+  },
   async delete(req, res) {
     try {
       const { id } = req.body;

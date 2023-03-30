@@ -1,7 +1,30 @@
 const Cliente = require("../models/Cliente");
 const uuid = require("uuid");
+const { Op } = require("sequelize");
 
 module.exports = {
+  async searchClient(req, res, next) {
+    try {
+      const { search } = req.body;
+  
+      const clients = await Cliente.findAll({
+        where: {
+          [Op.or]: [
+            { name: { [Op.like]: `%${search}%` } },
+            { email: { [Op.like]: `%${search}%` } },
+          ]
+        }
+      });
+
+      if (clients.length === 0) {
+        throw new Error("Nenhum cliente encontrado com o nome ou e-mail informado");
+      }
+
+      return res.json(clients);
+    } catch (error) {
+      return res.json({error: error.message});
+    }
+  },
   async delete(req, res) {
     try {
       const { id } = req.body;

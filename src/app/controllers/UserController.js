@@ -35,7 +35,7 @@ module.exports = {
         },
       });
 
-      if (userExists !== null) {
+      if (userExists === null) {
         throw new Error("Usuario não encontrado!");
       }
       next()

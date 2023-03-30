@@ -18,7 +18,7 @@ router.post('/users/login', AuthUserController.authUserService)
 router.post('/users', UserController.storage)
 router.get('/users', UserController.listUsers)
 router.get('/users/details', isAuthenticated, UserController.detailsUser)
-router.put('/users/update', UserController.updatePassword)
+router.put('/users/updatePassword', UserController.updatePassword)
 
 
 
@@ -28,6 +28,7 @@ router.post('/client', isAuthenticated , ClienteController.storage)
 router.get('/client', ClienteController.listAll)
 router.put('/client', isAuthenticated, ClienteController.update)
 router.delete('/client', isAuthenticated, ClienteController.delete)
+router.post('/client/search', isAuthenticated, ClienteController.searchClient)
 
 /*FORNECEDORES*/
 
@@ -35,5 +36,6 @@ router.post('/fornecedor', isAuthenticated, FornecedorController.storage)
 router.get('/fornecedor', FornecedorController.listAll)
 router.put('/fornecedor', isAuthenticated, FornecedorController.update)
 router.delete('/fornecedor', isAuthenticated, FornecedorController.delete)
+router.post('/fornecedor/search', isAuthenticated, FornecedorController.searchSupplier)
 
 module.exports = router;
