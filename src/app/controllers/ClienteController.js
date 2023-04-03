@@ -25,23 +25,25 @@ module.exports = {
       return res.json({error: error.message});
     }
   },
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
 
       const cliente = await Cliente.destroy({
         where: {
           id: id,
         },
       });
-      return res.json(cliente);
+
+      return res.json(cliente)
     } catch (err) {
-      console.log(err);
+      next(err)
     }
   },
-  async update(req, res) {
+  async update(req, res, next) {
     try {
-      const { id, name, email, telefone, endereco } = req.body;
+      const { name, email, telefone, endereco } = req.body;
+      const { id } = req.params;
 
       const cliente = await Cliente.update(
         {
@@ -58,10 +60,10 @@ module.exports = {
       );
       return res.json(cliente);
     } catch (err) {
-      console.log(err);
+      next(err)
     }
   },
-  async listAll(req, res) {
+  async listAll(req, res, next) {
     try {
       const clientes = await Cliente.findAll({
         order: [["id", "ASC"]],
@@ -69,12 +71,12 @@ module.exports = {
 
       return res.json(clientes);
     } catch (err) {
-      console.log(err);
+      next(err);
     }
   },
   async storage(req, res, next) {
     try {
-      const { name, email, telefone, endereco } = req.body;
+      const { name, email, telefone, endereco, urlImg } = req.body;
 
       const clientExistis = await Cliente.findOne({
         where: {
@@ -91,6 +93,7 @@ module.exports = {
         email,
         telefone,
         endereco,
+        urlImg
       });
       return res.json(cliente);
     } catch (err) {

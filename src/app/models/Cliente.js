@@ -8,6 +8,7 @@ class Cliente extends Model {
             email: DataTypes.STRING,
             telefone: DataTypes.STRING,
             endereco: DataTypes.STRING,
+            urlImg: DataTypes.BLOB,
         },
         {
             sequelize,

@@ -3,9 +3,32 @@ const uuid = require("uuid");
 const { hash } = require("bcryptjs");
 
 module.exports = {
+  async update(req, res, next) {
+    try {
+      const { name, email, telefone } = req.body;
+      const { id } = req.params;
+
+      const user = await User.update(
+        {
+          name,
+          email,
+          telefone,
+        },
+        {
+          where: {
+            id: id,
+          },
+        }
+      );
+      return res.json(user);
+    } catch (err) {
+      next(err)
+    }
+  },
   async updatePassword(req, res, next) {
     try {
-      const { id, newPassword } = req.body;
+      const { newPassword } = req.body;
+      const { id } = req.params;
 
       const passwordHash = await hash(newPassword, 8);
 

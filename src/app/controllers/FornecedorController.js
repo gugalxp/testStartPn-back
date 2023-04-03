@@ -27,7 +27,7 @@ module.exports = {
   },
   async delete(req, res) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
 
       const fornecedor = await Fornecedor.destroy({
         where: {
@@ -41,7 +41,8 @@ module.exports = {
   },
   async update(req, res) {
     try {
-      const { id, name, email, telefone, endereco } = req.body;
+      const { name, email, telefone, endereco } = req.body;
+      const { id } = req.params;
 
       const fornecedor = await Fornecedor.update(
         {
