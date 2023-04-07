@@ -3,6 +3,20 @@ const uuid = require("uuid");
 const { Op } = require("sequelize");
 
 module.exports = {
+  async deleteAll(req, res, next) {
+    try {
+      await Fornecedor.destroy({
+        where: {},
+        truncate: true,
+      });
+      return res.json({
+        message: "Todos os clientes foram excluídos com sucesso!",
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
   async searchSupplier(req, res, next) {
     try {
       const { search } = req.body;
@@ -17,12 +31,14 @@ module.exports = {
       });
 
       if (supplier.length === 0) {
-        throw new Error("Nenhum Fornecedor encontrado com o nome ou e-mail informado");
+        throw new Error(
+          "Nenhum Fornecedor encontrado com o nome ou e-mail informado"
+        );
       }
 
       return res.json(supplier);
     } catch (error) {
-      return res.json({error: error.message});
+      return res.json({ error: error.message });
     }
   },
   async delete(req, res) {
@@ -71,7 +87,7 @@ module.exports = {
   },
   async storage(req, res, next) {
     try {
-      const { name, email, telefone, endereco } = req.body;
+      const { name, email, telefone, endereco, urlImg } = req.body;
 
       const fornecedorExistis = await Fornecedor.findOne({
         where: {
@@ -88,6 +104,7 @@ module.exports = {
         email,
         telefone,
         endereco,
+        urlImg,
       });
       return res.json(fornecedor);
     } catch (err) {

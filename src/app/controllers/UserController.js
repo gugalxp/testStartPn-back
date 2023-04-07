@@ -3,6 +3,19 @@ const uuid = require("uuid");
 const { hash } = require("bcryptjs");
 
 module.exports = {
+  // async deleteAll(req, res, next) {
+  //   try {
+  //     await User.destroy({
+  //       where: {},
+  //       truncate: true,
+  //     });
+  //     return res.json({
+  //       message: "Todos os clientes foram excluídos com sucesso!",
+  //     });
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // },
   async update(req, res, next) {
     try {
       const { name, email, telefone } = req.body;
@@ -22,7 +35,7 @@ module.exports = {
       );
       return res.json(user);
     } catch (err) {
-      next(err)
+      next(err);
     }
   },
   async updatePassword(req, res, next) {
@@ -44,9 +57,9 @@ module.exports = {
       );
       next();
 
-      return res.json({ message: "Senha atualizada com sucesso!"});
+      return res.json({ message: "Senha atualizada com sucesso!" });
     } catch (err) {
-      next(err)
+      next(err);
       console.log(err);
     }
   },
@@ -61,10 +74,10 @@ module.exports = {
       if (userExists === null) {
         throw new Error("Usuario não encontrado!");
       }
-      next()
+      next();
       return res.json(userExists);
     } catch (err) {
-      next(err)
+      next(err);
       console.log(err);
     }
   },

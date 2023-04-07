@@ -14,6 +14,7 @@ router.post('/sendMail', sendMail)
 
 /*USER*/
 
+// router.delete('/users/deleteAll', UserController.deleteAll)
 router.post('/users/login', AuthUserController.authUserService)
 router.post('/users', UserController.storage)
 router.get('/users', UserController.listUsers)
@@ -24,18 +25,21 @@ router.put('/users/updateUser/:id', UserController.update)
 
 /*CLIENTES*/
 
+router.delete('/client/deleteAll', ClienteController.deleteAll)
+router.post('/client/search', isAuthenticated, ClienteController.searchClient)
 router.post('/client', isAuthenticated , ClienteController.storage)
 router.get('/client', ClienteController.listAll)
-router.put('/client/:id', isAuthenticated, ClienteController.update)
 router.delete('/client/:id', isAuthenticated, ClienteController.delete)
-router.post('/client/search', isAuthenticated, ClienteController.searchClient)
+router.put('/client/:id', isAuthenticated, ClienteController.update)
+
 
 /*FORNECEDORES*/
 
+router.delete('/fornecedor/deleteAll', FornecedorController.deleteAll)
 router.post('/fornecedor', isAuthenticated, FornecedorController.storage)
 router.get('/fornecedor', FornecedorController.listAll)
+router.post('/fornecedor/search', isAuthenticated, FornecedorController.searchSupplier)
 router.put('/fornecedor/:id', isAuthenticated, FornecedorController.update)
 router.delete('/fornecedor/:id', isAuthenticated, FornecedorController.delete)
-router.post('/fornecedor/search', isAuthenticated, FornecedorController.searchSupplier)
 
 module.exports = router;

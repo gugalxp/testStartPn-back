@@ -6,23 +6,25 @@ module.exports = {
   async searchClient(req, res, next) {
     try {
       const { search } = req.body;
-  
+
       const clients = await Cliente.findAll({
         where: {
           [Op.or]: [
             { name: { [Op.like]: `%${search}%` } },
             { email: { [Op.like]: `%${search}%` } },
-          ]
-        }
+          ],
+        },
       });
 
       if (clients.length === 0) {
-        throw new Error("Nenhum cliente encontrado com o nome ou e-mail informado");
+        throw new Error(
+          "Nenhum cliente encontrado com o nome ou e-mail informado"
+        );
       }
 
       return res.json(clients);
     } catch (error) {
-      return res.json({error: error.message});
+      return res.json({ error: error.message });
     }
   },
   async delete(req, res, next) {
@@ -35,14 +37,29 @@ module.exports = {
         },
       });
 
-      return res.json(cliente)
+      return res.json(cliente);
     } catch (err) {
-      next(err)
+      next(err);
     }
   },
+
+  async deleteAll(req, res, next) {
+    try {
+      await Cliente.destroy({
+        where: {},
+        truncate: true,
+      });
+      return res.json({
+        message: "Todos os clientes foram excluídos com sucesso!",
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
   async update(req, res, next) {
     try {
-      const { name, email, telefone, endereco } = req.body;
+      const { name, email, telefone, endereco, urlImg } = req.body;
       const { id } = req.params;
 
       const cliente = await Cliente.update(
@@ -51,6 +68,7 @@ module.exports = {
           email,
           telefone,
           endereco,
+          urlImg
         },
         {
           where: {
@@ -60,7 +78,7 @@ module.exports = {
       );
       return res.json(cliente);
     } catch (err) {
-      next(err)
+      next(err);
     }
   },
   async listAll(req, res, next) {
@@ -93,7 +111,7 @@ module.exports = {
         email,
         telefone,
         endereco,
-        urlImg
+        urlImg,
       });
       return res.json(cliente);
     } catch (err) {

@@ -8,6 +8,7 @@ class Fornecedor extends Model {
             email: DataTypes.STRING,
             telefone: DataTypes.STRING,
             endereco: DataTypes.STRING,
+            urlImg: DataTypes.STRING
         },
         {
             sequelize,
