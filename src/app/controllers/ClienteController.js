@@ -83,8 +83,14 @@ module.exports = {
   },
   async listAll(req, res, next) {
     try {
+      const { id } = req.params
+      console.log(`ID do usuário: ${id}`);
+
       const clientes = await Cliente.findAll({
         order: [["id", "ASC"]],
+        where:{
+          userId: id
+        }
       });
 
       return res.json(clientes);
@@ -94,11 +100,12 @@ module.exports = {
   },
   async storage(req, res, next) {
     try {
-      const { name, email, telefone, endereco, urlImg } = req.body;
+      const { name, email, telefone, endereco, urlImg, id } = req.body;
 
       const clientExistis = await Cliente.findOne({
         where: {
           email: email,
+          userId: id
         },
       });
       if (clientExistis !== null) {
@@ -112,6 +119,7 @@ module.exports = {
         telefone,
         endereco,
         urlImg,
+        userId: id
       });
       return res.json(cliente);
     } catch (err) {

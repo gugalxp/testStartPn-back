@@ -79,19 +79,26 @@ module.exports = {
     }
   },
   async listAll(req, res) {
+    
+    const { id } = req.params
+
     const fornecedores = await Fornecedor.findAll({
       order: [["id", "ASC"]],
+      where: {
+        userId: id
+      }
     });
 
     return res.json(fornecedores);
   },
   async storage(req, res, next) {
     try {
-      const { name, email, telefone, endereco, urlImg } = req.body;
+      const { name, email, telefone, endereco, urlImg, id } = req.body;
 
       const fornecedorExistis = await Fornecedor.findOne({
         where: {
           email: email,
+          userId: id
         },
       });
       if (fornecedorExistis !== null) {
@@ -105,6 +112,7 @@ module.exports = {
         telefone,
         endereco,
         urlImg,
+        userId: id
       });
       return res.json(fornecedor);
     } catch (err) {
