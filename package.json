@@ -2,10 +2,13 @@
   "name": "testeStartPn-Backend",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "18.15"
+},
   "scripts": {
-    "start": "node dist/server.js",
     "dev": "nodemon src/server.js",
-    "build": "tsup src"
+    "build": "tsup src",
+    "start": "node dist/server.js"
   },
   "license": "MIT",
   "dependencies": {
