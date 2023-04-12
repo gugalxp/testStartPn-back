@@ -1,5 +1,5 @@
 module.exports = {
-   dialect: 'startpn_deploy_pg', 
+   dialect: 'postgres', 
    host: 'dpg-cgr3lk64dadccqr5s43g-a',
    username: 'startpn_deploy_pg_user',
    password: "P9eZEvu6Upuz5ReH7jbHZ48Q2VsIg2pb",
