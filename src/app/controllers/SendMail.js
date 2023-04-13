@@ -53,9 +53,6 @@ async function send(req, res, next) {
     });
   } catch (error) {
     next(error);
-    res.json({
-      error: "Houve algum problema ao tentar enviar o e-mail! " + error.message,
-    });
   }
 }
 

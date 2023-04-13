@@ -24,7 +24,7 @@ module.exports = {
 
       return res.json(clients);
     } catch (error) {
-      return res.json({ error: error.message });
+      next(error)
     }
   },
   async delete(req, res, next) {
