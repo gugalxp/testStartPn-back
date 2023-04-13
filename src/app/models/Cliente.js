@@ -23,10 +23,4 @@ class Cliente extends Model {
   }
 }
 
-// Adiciona uma coluna dinamicamente
-User.addColumn('fieldsClient', {
-  type: DataTypes.STRING,
-  allowNull: true,
-});
-
 module.exports = Cliente;
