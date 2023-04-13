@@ -31,7 +31,7 @@ async function send(req, res, next) {
 
     let resonseEmailSent = userExists;
 
-    const link = "http://localhost:3000/newPassword";
+    const link = "https://test-start-pn-front.vercel.app/newPassword";
 
     const corpoEmail = `
     <p>Você solicitou uma redefinição de senha em nosso site.</p>
