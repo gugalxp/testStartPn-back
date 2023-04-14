@@ -21,6 +21,7 @@ module.exports = {
       const { name, email, telefone, urlImg } = req.body;
       const { id } = req.params;
 
+      console.log("A URL DA IMAGEM CHEGOU AQUI INTACTA: ", urlImg)
       const user = await User.update(
         {
           name,
