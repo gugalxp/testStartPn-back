@@ -18,7 +18,8 @@ module.exports = {
   // },
   async update(req, res, next) {
     try {
-      const { name, email, telefone } = req.body;
+      const { name, email, telefone, urlImg } = req.body;
+      console.log("A URL DA IMAGEM DO PERFIL É ESSA: ", urlImg);
       const { id } = req.params;
 
       const user = await User.update(
@@ -26,6 +27,7 @@ module.exports = {
           name,
           email,
           telefone,
+          urlImg
         },
         {
           where: {

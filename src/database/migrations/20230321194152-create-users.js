@@ -23,8 +23,8 @@ module.exports = {
         allowNull: false
       },
       urlImg: {
-        type: Sequelize.BLOB,
-        allowNull: true
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       createdAt: {
         type: Sequelize.DATE,
