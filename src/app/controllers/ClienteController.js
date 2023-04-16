@@ -45,9 +45,12 @@ module.exports = {
 
   async deleteAll(req, res, next) {
     try {
+      const { id } = req.params;
+
       await Cliente.destroy({
-        where: {},
-        truncate: true,
+        where: {
+          userId: id
+        },
       });
       return res.json({
         message: "Todos os clientes foram excluídos com sucesso!",

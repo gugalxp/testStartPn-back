@@ -25,9 +25,9 @@ router.put('/users/updateUser/:id', UserController.update)
 
 /*CLIENTES*/
 
-router.delete('/client/deleteAll', ClienteController.deleteAll)
 router.post('/client/search', isAuthenticated, ClienteController.searchClient)
 router.post('/client', isAuthenticated , ClienteController.storage)
+router.delete('/client/deleteAll/:id', ClienteController.deleteAll)
 router.get('/client/:id', ClienteController.listAll)
 router.delete('/client/:id', isAuthenticated, ClienteController.delete)
 router.put('/client/:id', isAuthenticated, ClienteController.update)
