@@ -7,6 +7,8 @@ module.exports = {
     try {
       const { id } = req.params;
 
+      console.log("ID USER FORNECEDOR: ", id)
+      
       await Fornecedor.destroy({
         where: {
           userId: id
