@@ -41,6 +41,7 @@ module.exports = {
         email: user?.email,
         endereco: user?.endereco,
         endereco: user?.telefone,
+        urlImg: user?.urlImg,
         token: token,
       });
     } catch (err) {
