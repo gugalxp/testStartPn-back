@@ -26,9 +26,11 @@ module.exports = {
   async searchSupplier(req, res, next) {
     try {
       const { search } = req.body;
+      const { id } = req.params;
 
       const supplier = await Fornecedor.findAll({
         where: {
+          userId: id,
           [Op.or]: [
             { name: { [Op.like]: `%${search}%` } },
             { email: { [Op.like]: `%${search}%` } },

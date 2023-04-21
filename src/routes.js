@@ -25,10 +25,10 @@ router.put('/users/updateUser/:id', UserController.update)
 
 /*CLIENTES*/
 
-router.post('/client/search', isAuthenticated, ClienteController.searchClient)
 router.post('/client', isAuthenticated , ClienteController.storage)
+router.post('/client/search/:id', isAuthenticated, ClienteController.searchClient)
 router.delete('/client/deleteAll/:id', ClienteController.deleteAll)
-router.get('/client/:id', ClienteController.listAll)
+router.get('/client/:id', isAuthenticated, ClienteController.listAll)
 router.delete('/client/:id', isAuthenticated, ClienteController.delete)
 router.put('/client/:id', isAuthenticated, ClienteController.update)
 
@@ -36,9 +36,9 @@ router.put('/client/:id', isAuthenticated, ClienteController.update)
 /*FORNECEDORES*/
 
 router.post('/fornecedor', isAuthenticated, FornecedorController.storage)
-router.post('/fornecedor/search', isAuthenticated, FornecedorController.searchSupplier)
+router.post('/fornecedor/search/:id', isAuthenticated, FornecedorController.searchSupplier)
 router.delete('/fornecedor/deleteAll/:id', FornecedorController.deleteAll)
-router.get('/fornecedor/:id', FornecedorController.listAll)
+router.get('/fornecedor/:id', isAuthenticated, FornecedorController.listAll)
 router.put('/fornecedor/:id', isAuthenticated, FornecedorController.update)
 router.delete('/fornecedor/:id', isAuthenticated, FornecedorController.delete)
 

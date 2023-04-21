@@ -6,9 +6,11 @@ module.exports = {
   async searchClient(req, res, next) {
     try {
       const { search } = req.body;
+      const { id } = req.params;
 
       const clients = await Cliente.findAll({
         where: {
+          userId: id,
           [Op.or]: [
             { name: { [Op.like]: `%${search}%` } },
             { email: { [Op.like]: `%${search}%` } },
